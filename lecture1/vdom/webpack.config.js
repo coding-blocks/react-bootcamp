@@ -45,11 +45,7 @@ module.exports = {
     hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
   },
   plugins: [
-    new CleanWebpackPlugin([BUILD_DIR], {
-      root: __dirname,
-      verbose: false,
-      dry: false,
-    }),
+    new CleanWebpackPlugin([BUILD_DIR]),
     new HtmlWebPackPlugin({
       template: `${APP_DIR}/index.html`,
       filename: './index.html',

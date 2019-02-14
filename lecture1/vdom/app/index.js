@@ -22,7 +22,9 @@ const renderList = list =>
   h(
     'ul#list',
     { style: { fontSize: '20px', padding: '0', margin: '75px 0 30px 0' } },
-    list.map(({ name, email }) => h('li', { key: email }, [`Email: ${email} Name: ${name}`])),
+    list.map(({ name, email }) =>
+      h('li', { key: email, style: { fontSize: '30px' } }, [`Email: ${email} Name: ${name}`]),
+    ),
   );
 
 const renderLoadMore = () =>
@@ -67,7 +69,6 @@ document.body.appendChild(rootNode);
 const render = () => {
   const newTree = renderApp(state.list, state.total);
   const patches = diff(tree, newTree);
-  console.log(patches);
   rootNode = patch(rootNode, patches);
   tree = newTree;
 };
