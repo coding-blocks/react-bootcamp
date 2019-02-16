@@ -2,23 +2,27 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import './styles/main.scss';
+import Button from './button';
+
+/* funcational component
+const App = props => {
+  const onClick = () => console.log('clicked');
+  return <Button text="click on me" onClick={onClick} />;
+};
+*/
 
 class App extends React.Component {
-  state = {
-    a: 'foo',
-    bar: 'bar',
+  handleOnClick = () => {
+    console.log('clicked');
   };
 
   render() {
-    const { a, ...rest } = this.state;
-    const b = {
-      a: 'a',
-    };
-    const c = [1, 2, 3];
-    console.log(...c);
-    console.log(a, { ...b });
-    return <h1>Hello World</h1>;
+    return (
+      <React.Fragment>
+        <h1>React Playground</h1>
+        <Button text="click on me" onClick={this.handleOnClick} />
+      </React.Fragment>
+    );
   }
 }
 

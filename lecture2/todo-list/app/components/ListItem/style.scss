@@ -1,0 +1,10 @@
+li.list-item {
+  display: block;
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 0;
+
+  .status {
+    float: right;
+  }
+}
