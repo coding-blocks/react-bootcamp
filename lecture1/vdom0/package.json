@@ -1,5 +1,5 @@
 {
-  "name": "es6-imports",
+  "name": "vdom-example",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "Naman Kumar <naman@outlook.in>",
