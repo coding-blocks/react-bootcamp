@@ -5,8 +5,8 @@
   "author": "Naman Kumar <naman@outlook.in>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --hot",
-    "build": "NODE_ENV=production webpack --progress --profile --colors",
+    "start": "webpack-dev-server --hot",
+    "build": "webpack --progress --profile --colors",
     "precommit": "lint-staged",
     "format": "prettier --write \"app/**/*.{js,jsx,json,css,scss}\""
   },
