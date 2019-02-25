@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',
+    publicPath: '/',
   },
   mode: process.env.NODE_ENV || 'development',
   devServer: {

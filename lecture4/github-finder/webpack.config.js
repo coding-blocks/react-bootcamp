@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const APP_DIR = path.resolve(__dirname, 'app');
 const BUILD_DIR = path.resolve(__dirname, 'dist');
@@ -27,12 +28,12 @@ module.exports = {
   },
   module: {
     rules: [
-      /*{
+      /* {
         enforce: 'pre',
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
-      },*/
+      }, */
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -76,6 +77,7 @@ module.exports = {
     hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin([BUILD_DIR]),
     new CopyWebpackPlugin([{ from: 'public', to: './' }]),
     new HtmlWebPackPlugin({
