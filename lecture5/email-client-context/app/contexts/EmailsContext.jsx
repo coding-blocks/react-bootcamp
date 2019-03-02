@@ -18,11 +18,12 @@ class EmailsProvider extends React.Component {
   };
 
   render() {
+    const { emails } = this.state;
     return (
       <Provider
         value={{
           state: {
-            emails: this.state.emails,
+            emails: emails,
           },
           actions: {
             fetchEmails: this.fetchEmails,
