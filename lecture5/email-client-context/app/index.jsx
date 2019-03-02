@@ -13,7 +13,7 @@ class App extends React.Component {
   updateUser = user => this.setState({ user });
 
   render() {
-    const { user, emails } = this.state;
+    const { user } = this.state;
 
     return (
       <Router>
