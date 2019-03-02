@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { AuthConsumer, EmailsConsumer } from '../../contexts';
-import { NavBar, EmailItem } from '../../components';
+import { AuthConsumer, EmailsConsumer } from '../../contexts/';
+import { NavBar, EmailItem } from '../../components/';
 
 class HomePage extends React.Component {
   state = {
@@ -18,22 +18,19 @@ class HomePage extends React.Component {
 
     this.fetchEmailInterval = setInterval(async function() {
       await fetchEmails();
-    }, 5000);
+    }, 7000);
   };
 
-  componentWillUnMount() {
+  clearEmails = () => {
     clearInterval(this.fetchEmailInterval);
-  }
+  };
 
   render() {
     const { fetchIntervalMounted } = this.state;
 
     return (
       <AuthConsumer>
-        {({ state, actions }) => {
-          const { auth } = state;
-          const { logout } = actions;
-
+        {({ state: { auth } }) => {
           if (!auth.loggedIn) {
             return <Redirect to="/login/" />;
           }
@@ -48,7 +45,7 @@ class HomePage extends React.Component {
 
                 return (
                   <div className="home-page">
-                    <NavBar />
+                    <NavBar clearEmails={this.clearEmails} />
                     {emails.reverse().map(({ subject, sender, id, body }) => (
                       <EmailItem key={id} emailId={id} subject={subject} sender={sender} summary={body.substr(20)} />
                     ))}

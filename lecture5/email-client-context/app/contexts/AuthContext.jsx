@@ -9,22 +9,18 @@ class AuthProvider extends React.Component {
     inProgress: false,
     loggedIn: false,
     errors: undefined,
+    user: undefined,
   };
 
   logout = () => {
-    const { updateUser } = this.props;
-
     this.setState({
       loggedIn: false,
       errors: undefined,
+      user: undefined,
     });
-
-    return updateUser();
   };
 
   login = async payload => {
-    const { updateUser } = this.props;
-
     await this.setState({
       inProgress: true,
     });
@@ -32,20 +28,19 @@ class AuthProvider extends React.Component {
     try {
       const { user } = await login(payload);
 
-      await updateUser(user);
       this.setState({
         inProgress: false,
         loggedIn: true,
         errors: undefined,
+        user: user,
       });
     } catch (err) {
       this.setState({
         inProgress: false,
         loggedIn: false,
         errors: err.errors,
+        user: undefined,
       });
-
-      updateUser();
     }
   };
 

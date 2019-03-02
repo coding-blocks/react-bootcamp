@@ -19,12 +19,12 @@ class LoginPage extends React.Component {
 
     return (
       <AuthConsumer>
-        {({ state, actions }) => {
-          const {
+        {({
+          state: {
             auth: { loggedIn, inProgress, errors = {} },
-          } = state;
-          const { login } = actions;
-
+          },
+          actions: { login },
+        }) => {
           if (loggedIn) {
             return <Redirect to="/" />;
           }

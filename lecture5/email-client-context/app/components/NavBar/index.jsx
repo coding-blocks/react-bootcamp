@@ -1,18 +1,23 @@
 import React from 'react';
-import { AuthConsumer, UserConsumer } from '../../contexts';
+import { AuthConsumer, EmailsConsumer } from '../../contexts';
 
 const NavBar = () => (
   <AuthConsumer>
-    {({ actions: { logout } }) => (
-      <UserConsumer>
-        {({ state: { user } }) => (
-          <div className="nav">
-            <span>Welcome {user.name}</span>
-            <img src={user.avatar_url} style={{ width: '30px', height: '30px', borderRadius: '50%' }} />
-            <button onClick={logout}>Logout</button>
-          </div>
-        )}
-      </UserConsumer>
+    {(
+      {
+        state: {
+          auth: { user },
+        },
+      },
+      { actions: { logout } },
+    ) => (
+      <div className="nav">
+        <span>Welcome {user.name}</span>
+        <img src={user.avatar_url} style={{ width: '30px', height: '30px', borderRadius: '50%' }} />
+        <EmailsConsumer>
+          <button onClick={logout}>Logout</button>
+        </EmailsConsumer>
+      </div>
     )}
   </AuthConsumer>
 );
