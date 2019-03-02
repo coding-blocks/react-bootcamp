@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { EmailsConsumer } from '../../contexts';
 import { NavBar, EmailItem } from '../../components';
 
 class HomePage extends React.Component {
@@ -28,24 +27,18 @@ class HomePage extends React.Component {
   render() {
     const { fetchIntervalMounted } = this.state;
 
-    return (
-      <EmailsConsumer>
-        {({ state: { emails }, actions: { fetchEmails } }) => {
-          if (!fetchIntervalMounted) {
-            this.mountFetchInterval(fetchEmails);
-            return <h1>Fetching Emails</h1>;
-          }
+    if (!fetchIntervalMounted) {
+      this.mountFetchInterval(fetchEmails);
+      return <h1>Fetching Emails</h1>;
+    }
 
-          return (
-            <div className="home-page">
-              <NavBar />
-              {emails.reverse().map(({ subject, sender, id, body }) => (
-                <EmailItem key={id} emailId={id} subject={subject} sender={sender} summary={body.substr(20)} />
-              ))}
-            </div>
-          );
-        }}
-      </EmailsConsumer>
+    return (
+      <div className="home-page">
+        <NavBar />
+        {emails.reverse().map(({ subject, sender, id, body }) => (
+          <EmailItem key={id} emailId={id} subject={subject} sender={sender} summary={body.substr(20)} />
+        ))}
+      </div>
     );
   }
 }
