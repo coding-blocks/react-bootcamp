@@ -34,20 +34,10 @@ class App extends React.Component {
             <Route
               render={() => (
                 <EntryController>
-                  <EmailsProvider
-                    value={{
-                      state: {
-                        emails,
-                      },
-                      actions: {
-                        fetchEmails: this.fetchEmails,
-                      },
-                    }}>
-                    <UserProvider
-                      value={{
-                        state: { user },
-                        actions: {},
-                      }}>
+                  <EmailsProvider>
+ 
+                    <UserProvider>
+                     
                       <Route path="/" exact component={HomePage} />
                       <Route path="/email/:emailId" exact component={EmailPage} />
                     </UserProvider>
