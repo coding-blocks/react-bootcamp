@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const EntryController = ({ children }) => {
+const EntryController = ({ loggedIn, children }) => {
   if (!loggedIn) {
     return <Redirect to="/login/" />;
   }
@@ -9,4 +10,8 @@ const EntryController = ({ children }) => {
   return children || null;
 };
 
-export default EntryController;
+const mapStateToProps = ({ auth }) => ({
+  loggedIn: auth.loggedIn,
+});
+
+export default connect(mapStateToProps)(EntryController);

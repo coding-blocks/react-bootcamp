@@ -9,8 +9,6 @@ import store from './store';
 
 class App extends React.Component {
   render() {
-    const { user, emails } = this.state;
-
     return (
       <Provider store={store}>
         <Router>

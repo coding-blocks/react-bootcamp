@@ -16,7 +16,7 @@ class LoginPage extends React.Component {
     });
 
   render() {
-    const { loggedIn, loggingIn, error = {}, login } = this.props;
+    const { loggedIn, loggingIn, errors = {}, login } = this.props;
     const { username, password } = this.state;
 
     if (loggedIn) {
@@ -56,7 +56,12 @@ const mapStateToProps = ({ auth }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: payload => dispatch(Actions.login(payload)),
+  login: payload => {
+    // fucntion as an action
+    const action = Actions.login(payload);
+    return dispatch(action);
+    // dispatch(Actions.login(payload)),
+  },
 });
 
 export default connect(

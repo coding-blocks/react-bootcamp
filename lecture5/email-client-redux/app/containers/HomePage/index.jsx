@@ -1,36 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import * as Actions from '../../actions';
 import { NavBar, EmailItem } from '../../components';
 
 class HomePage extends React.Component {
-  state = {
-    fetchIntervalMounted: false,
-  };
-
-  mountFetchInterval = async fetchEmails => {
-    await this.setState(state => ({
-      fetchIntervalMounted: !state.fetchIntervalMounted,
-    }));
-
+  async componentDidMount() {
+    const { fetchEmails } = this.props;
     await fetchEmails();
 
     this.fetchEmailInterval = setInterval(async function() {
       await fetchEmails();
-    }, 5000);
-  };
+    }, 3000);
+  }
 
   componentWillUnmount() {
     clearInterval(this.fetchEmailInterval);
   }
 
   render() {
-    const { fetchIntervalMounted } = this.state;
-
-    if (!fetchIntervalMounted) {
-      this.mountFetchInterval(fetchEmails);
-      return <h1>Fetching Emails</h1>;
-    }
+    const { emails } = this.props;
 
     return (
       <div className="home-page">
@@ -43,4 +33,15 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+const mapStateToProps = ({ emails }) => ({
+  emails: emails.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchEmails: () => dispatch(Actions.fetchEmails()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage);

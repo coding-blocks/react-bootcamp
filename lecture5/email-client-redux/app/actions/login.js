@@ -14,9 +14,14 @@ const loginFail = payload => ({
   payload,
 });
 
-export const login = async ({ username, password }) => {
+// action creator
+export const login = ({ username, password }) => {
+  // fucntion as an action
   return async function(dispatch) {
-    dispatch(loginInProgress());
+    // object as an action
+    const loginInProgressAction = loginInProgress();
+    await dispatch(loginInProgressAction);
+    // dispatch(loginInProgress());
 
     try {
       const { user } = await new Promise((resolve, reject) => {
@@ -40,11 +45,18 @@ export const login = async ({ username, password }) => {
         }, 300);
       });
 
-      dispatch(loginSuccess({ user }));
+      // create succcess action object
+      const successAction = loginSuccess({ user });
+      dispatch(successAction);
+      // dispatch(loginSuccess({ user }));
 
       return { user };
     } catch (err) {
-      dispatch(loginFail(err));
+      // create fail action object
+      const failAction = loginFail(err);
+      dispatch(failAction);
+      // dispatch(loginFail(err));
+
       return err;
     }
   };

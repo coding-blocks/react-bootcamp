@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { NavBar } from '../../components';
 
-const EmailPage = props => {
-  const { emailId } = props.match.params;
+const EmailPage = ({ emails, match }) => {
+  const { emailId } = match.params;
 
   const email = emails.find(({ id }) => id == emailId) || {};
 
@@ -21,4 +22,8 @@ const EmailPage = props => {
   );
 };
 
-export default EmailPage;
+const mapStateToProps = ({ emails }) => ({
+  emails: emails.data,
+});
+
+export default connect(mapStateToProps)(EmailPage);

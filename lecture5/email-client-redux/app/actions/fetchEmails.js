@@ -1,5 +1,6 @@
-let emailsCount = 0;
+import Actions from '../store/actions';
 
+let emailsCount = 0;
 const emails = [
   {
     subject: 'Welcome to React Bootcamp',
@@ -18,8 +19,24 @@ const emails = [
   },
 ];
 
-export const fetchEmails = async () => {
-  return new Promise((resolve, reject) => {
+const fetchEmailsInProgress = () => ({
+  type: Actions.fetchEmailsInProgress,
+});
+
+const fetchEmailsSuccess = payload => ({
+  type: Actions.fetchEmailsSuccess,
+  payload,
+});
+
+const fetchEmailsFail = payload => ({
+  type: Actions.fetchEmailsFail,
+  payload,
+});
+
+export const fetchEmails = () => async dispatch => {
+  await dispatch(fetchEmailsInProgress());
+
+  const { emails: newEmailsData } = await new Promise((resolve, reject) => {
     if (emailsCount > 10) {
       return [];
     }
@@ -35,4 +52,8 @@ export const fetchEmails = async () => {
       emails: newEmails,
     });
   });
+
+  dispatch(fetchEmailsSuccess({ emails: newEmailsData }));
+
+  return { emails: newEmailsData };
 };

@@ -13,7 +13,8 @@ module.exports = {
   entry: ['babel-polyfill', `${APP_DIR}/index.jsx`],
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
+    chunkFilename: '[name].[hash].chunk.js',
     publicPath: '/',
   },
   mode: process.env.NODE_ENV || 'development',
