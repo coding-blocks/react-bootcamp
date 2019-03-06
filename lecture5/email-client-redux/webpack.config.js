@@ -17,10 +17,11 @@ module.exports = {
     chunkFilename: '[name].[hash].chunk.js',
     publicPath: '/',
   },
+  devtool: 'source-map',
   mode: process.env.NODE_ENV || 'development',
   devServer: {
     contentBase: BUILD_DIR,
-    compress: true,
+    compress: false,
     port: 3000, // port number
     historyApiFallback: true,
   },
@@ -86,7 +87,7 @@ module.exports = {
       filename: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'bundle.css',
+      filename: 'bundle.[hash].css',
     }),
     new CompressionPlugin({
       algorithm: 'gzip',
